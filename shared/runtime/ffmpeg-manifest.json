@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "coreVersion": "0.12.10",
+  "basePath": "/runtime/ffmpeg/0.12.10",
+  "originalWasm": {
+    "byteSize": 32232419,
+    "sha256": "9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7"
+  },
+  "javascript": {
+    "fileName": "ffmpeg-core.js",
+    "byteSize": 111804,
+    "sha256": "67a48f11645f85439f3fde4f2119042c16b374b910206b7a7a24f342e28dcae3"
+  },
+  "wasmParts": [
+    {
+      "fileName": "ffmpeg-core.wasm.part-000",
+      "byteSize": 16777216,
+      "sha256": "4ccba0c9cc7f019751a958ead3918cf51c9563ff2f8a76fb1f72ae492f66693b"
+    },
+    {
+      "fileName": "ffmpeg-core.wasm.part-001",
+      "byteSize": 15455203,
+      "sha256": "80e8b2ae7994e92102e048249ab0a6673480ca626c359b1d321b24f105f02e65"
+    }
+  ]
+}

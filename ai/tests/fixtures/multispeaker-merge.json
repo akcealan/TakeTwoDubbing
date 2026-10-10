@@ -1,0 +1,37 @@
+{
+  "durationMs": 6200,
+  "segments": [
+    {
+      "startMs": 100,
+      "endMs": 4700,
+      "text": "Selam dostum. Bugün nasılsın? Buradayım.",
+      "logProbability": -0.2,
+      "words": [
+        [100, 480, "Selam"],
+        [500, 900, "dostum."],
+        [960, 1350, "Bugün"],
+        [1370, 1850, "nasılsın?"],
+        [2020, 2300, "Buradayım."]
+      ]
+    },
+    {
+      "startMs": 2600,
+      "endMs": 5600,
+      "text": "Hazırız, başlayalım.",
+      "logProbability": -0.25,
+      "words": [
+        [2600, 3030, "Hazırız,"],
+        [3050, 3650, "başlayalım."],
+        [4800, 5200, "Tamam."]
+      ]
+    }
+  ],
+  "turns": [
+    [50, 930, "VOICE_ALPHA"],
+    [940, 1900, "VOICE_BETA"],
+    [1980, 2360, "VOICE_GAMMA"],
+    [2550, 3700, "VOICE_ALPHA"],
+    [2950, 3250, "VOICE_BETA"],
+    [4720, 5250, "VOICE_GAMMA"]
+  ]
+}

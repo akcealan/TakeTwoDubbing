@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "take-two-rooms",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-07-01",
+  "workers_dev": true,
+  "durable_objects": {
+    "bindings": [
+      { "name": "ROOMS", "class_name": "GameRoom" },
+      { "name": "SCENE_STUDIO", "class_name": "SceneStudio" },
+      { "name": "MEDIA_STORE", "class_name": "MediaStore" },
+    ],
+  },
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true,
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["GameRoom"] },
+    { "tag": "v2", "new_sqlite_classes": ["SceneStudio"] },
+    { "tag": "v3", "new_sqlite_classes": ["MediaStore"] },
+  ],
+  "vars": {
+    "ALLOWED_ORIGINS": "http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173",
+    "ROOM_TTL_MS": "10800000",
+  },
+  "dev": { "port": 8787 },
+}

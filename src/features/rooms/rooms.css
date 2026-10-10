@@ -1,0 +1,389 @@
+.room-entry {
+  max-width: 500px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+.room-entry h1,
+.lobby-heading h1 {
+  font-size: clamp(32px, 4vw, 45px);
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  margin: 18px 0;
+}
+.room-entry > p,
+.lobby-heading p {
+  color: #b5acbf;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.entry-scene {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-top: 25px;
+  padding: 12px;
+  background: #1b1723;
+  border-radius: 10px;
+  border: 1px solid #ffffff15;
+}
+.entry-scene img {
+  width: 110px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.entry-scene strong {
+  font-size: 15px;
+}
+.entry-scene span {
+  display: block;
+  font-size: 11px;
+  color: #b5a6c5;
+  margin-top: 8px;
+}
+.entry-form {
+  margin: 28px 0 20px;
+}
+.entry-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.entry-form input {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #ffffff25;
+  background: #1b1722;
+  margin-top: 10px;
+  font-size: 15px;
+}
+.entry-form input[name='code'] {
+  font-family: monospace;
+  letter-spacing: 8px;
+  font-size: 24px;
+}
+.entry-form .button {
+  margin-top: 25px;
+}
+.field-help {
+  display: block;
+  font-size: 11px;
+  color: #b4a7bf;
+  line-height: 1.8;
+  margin-top: 9px;
+}
+.room-error {
+  padding: 15px 18px;
+  border: 1px solid #dd9eab50;
+  background: #3a222c;
+  color: #f3c7d1;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 18px 0;
+}
+.room-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.lobby-page {
+  padding: 45px 0 55px;
+}
+.lobby-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+.lobby-heading h1 {
+  margin-bottom: 10px;
+}
+.connection-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #dcb68545;
+  color: #e8c59d;
+  padding: 9px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.connection-badge > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.connection-badge.is-online {
+  border-color: #9dd6b845;
+  color: #acdfc3;
+}
+.lobby-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 32px;
+}
+.invite-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid #c7b5ff35;
+  background: linear-gradient(120deg, #2c233c, #1b1725);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 32px;
+}
+.room-code {
+  display: block;
+  font-family: monospace;
+  font-size: 44px;
+  letter-spacing: 8px;
+  color: #ddcaff;
+  margin: 12px 0 8px;
+}
+.invite-panel p {
+  font-size: 12px;
+  color: #b5a6c8;
+}
+.invite-link {
+  width: 100%;
+  min-width: 0;
+  background: #100d1880;
+  border: 1px solid #ffffff18;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 12px;
+  color: #c8b7da;
+}
+.invite-panel > .field-help:empty {
+  display: none;
+}
+.lobby-main .section-heading {
+  margin-bottom: 18px;
+}
+.lobby-main .section-heading h2 {
+  font-size: 20px;
+  font-weight: 650;
+  margin: 0;
+}
+.lobby-main .section-heading h2 > span {
+  font-size: 12px;
+  margin-left: 8px;
+}
+.lobby-players {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.lobby-players li {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px;
+  border: 1px solid #ffffff12;
+  border-radius: 10px;
+  background: #1c1823;
+}
+.player-name {
+  min-width: 0;
+  flex: 1;
+}
+.player-name strong {
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.player-name > span {
+  display: block;
+  color: #b2a5bf;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.you-label {
+  font-size: 11px;
+  color: #b8a5cf;
+  font-weight: 400;
+}
+.host-badge {
+  color: #d9bafa;
+  background: #3b2b50;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 9px;
+}
+.ready-badge {
+  color: #b7aabd;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.ready-badge.is-ready {
+  color: #aadbbf;
+}
+.offline-avatar {
+  opacity: 0.5;
+}
+.lobby-scene {
+  display: block;
+  border: 1px solid #ffffff15;
+  border-radius: 12px;
+  overflow: hidden;
+  padding-bottom: 18px;
+  background: #1b1721;
+}
+.lobby-scene img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.8;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+.lobby-scene .eyebrow,
+.lobby-scene h2,
+.lobby-scene p {
+  margin-inline: 20px;
+}
+.lobby-scene h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 9px;
+}
+.lobby-scene p {
+  margin-top: 7px;
+  color: #ad9bbe;
+  font-size: 11px;
+}
+.lobby-controls {
+  padding: 24px;
+  margin-top: 20px;
+  background: #211a2d;
+  border: 1px solid #c7b5ff25;
+  border-radius: 12px;
+}
+.lobby-controls h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+.lobby-controls > p:not(.field-help) {
+  font-size: 12px;
+  color: #bcadca;
+  line-height: 1.8;
+  margin-block: 15px 20px;
+}
+.text-button {
+  color: #d3b9ef;
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-size: 12px;
+  padding: 8px;
+}
+.leave-button {
+  display: block;
+  margin: 12px auto 0;
+}
+.start-game-button {
+  margin-top: 10px;
+}
+.assignment-list {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+  padding-left: 20px;
+  color: #ddcaff;
+  font-size: 14px;
+}
+.room-error .text-button {
+  margin-left: 10px;
+}
+@media (max-width: 900px) {
+  .lobby-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 20px;
+  }
+  .invite-panel {
+    padding: 20px;
+  }
+  .room-code {
+    font-size: 37px;
+    letter-spacing: 6px;
+  }
+  .lobby-players li {
+    gap: 9px;
+    padding: 13px;
+  }
+  .lobby-controls {
+    padding: 18px;
+  }
+}
+@media (max-width: 700px) {
+  .lobby-grid {
+    grid-template-columns: 1fr;
+  }
+  .lobby-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lobby-page {
+    padding-top: 30px;
+  }
+  .lobby-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+  .lobby-controls {
+    order: -1;
+    margin: 0 0 20px;
+  }
+  .lobby-main > .field-help {
+    margin-bottom: 15px;
+  }
+  .room-entry {
+    max-width: 100%;
+  }
+  .room-entry h1 {
+    font-size: 34px;
+  }
+}
+@media (max-width: 390px) {
+  .lobby-players .avatar {
+    width: 33px;
+    height: 33px;
+  }
+  .player-name strong {
+    font-size: 12px;
+  }
+  .lobby-players li {
+    gap: 7px;
+    padding: 12px;
+  }
+  .host-badge {
+    padding: 3px 4px;
+  }
+  .room-code {
+    font-size: 36px;
+    letter-spacing: 5px;
+  }
+  .header-inner {
+    gap: 12px;
+  }
+  .header-inner nav {
+    gap: 12px;
+  }
+  .nav-link {
+    font-size: 11px;
+  }
+}

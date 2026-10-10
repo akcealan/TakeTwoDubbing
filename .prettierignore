@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+.tools/
+test-results/
+package-lock.json
+AGENTS.md
+.wrangler/
+.worker-build/
+ai/.venv*/
+ai/.cache/
+ai/.tmp-pytest*/
+.tmp-pytest*/
+ai/**/__pycache__/

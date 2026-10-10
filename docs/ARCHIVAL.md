@@ -32,27 +32,42 @@ must not be added.
 
 ## Restoration requirements
 
+Local development needs no Cloudflare account and deploys nothing:
+
 1. Node.js 24 LTS (>= 24.15), npm. See engine ranges in `package.json`.
-2. `npm ci`, then `npm run dev:all` for local Vite + Worker development.
+   On Windows, double-click `Kurulum.bat`; afterwards start development with
+   `Baslat.bat` (`npm run dev:all`, then `http://127.0.0.1:5173`).
+2. Manual path: `npm ci`, then `npm run dev:all` for local Vite + Worker development.
 3. `npm run build` regenerates `public/runtime/` and validates the Worker dry-run.
 4. Optional AI companion: `npm run ai:setup`, gated model download with
    `HF_TOKEN` via `npm run ai:models`, then `npm run ai:dev`. See `ai/README.md`.
    Weights require separate license acceptance (notably CC BY 4.0 for
    Community-1) and multi-GB disk. CDX23 checkpoint weights remain
    license-uncertain and local-only.
-5. Cloudflare redeployment (if ever needed) requires `wrangler login`, an updated
-   `ALLOWED_ORIGINS`, `npm run build`, `npm run production:audit`, and
-   `wrangler deploy`. No R2 binding is used. See `docs/SHUTDOWN_CHECKLIST.md`
-   before touching the historical deployment.
+5. A future optional Cloudflare redeployment from this source (if ever needed)
+   requires `wrangler login`, an updated `ALLOWED_ORIGINS`, `npm run build`,
+   `npm run production:audit`, and `wrangler deploy`. No R2 binding is used.
+   None of these run automatically.
 
-## Historical deployment
+## Historical deployment and completed retirement
 
 Worker `take-two-rooms` was deployed on 2026-09-13 to
 `https://take-two-rooms.take-two.workers.dev` with SQLite `ROOMS`,
 `SCENE_STUDIO`, `MEDIA_STORE` and 14 Static Assets, zero R2 bindings. Remote
 smoke and same-machine Chrome acceptance passed. Different-home multiplayer
-acceptance never ran. Shutdown is planned after GitHub publication is verified;
-it is not implemented here. See `docs/SHUTDOWN_CHECKLIST.md`.
+acceptance never ran.
+
+On **2026-10-10 the production deployment was permanently retired**:
+
+- Phase A: a `v4` legacy `deleted_classes` migration removed the `GameRoom`,
+  `SceneStudio`, and `MediaStore` classes including all stored data (rooms,
+  sessions, scenes, clips, recordings, backgrounds, thumbnails, final MP4s).
+  The Cloudflare dashboard independently showed "No Durable Objects found".
+- Phase B: `wrangler delete --name take-two-rooms` succeeded. Authenticated
+  checks return Worker-not-found (code 10007); the former public URL returns
+  HTTP 404. R2 was never provisioned.
+
+See `docs/SHUTDOWN_CHECKLIST.md` for the completed checklist.
 
 ## Licensing
 

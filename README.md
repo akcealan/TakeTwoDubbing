@@ -96,6 +96,12 @@ from a terminal). It reuses only the existing project scripts:
 The installer is repeat-safe: valid existing downloads are reused and completed
 steps are skipped.
 
+After setup, double-click **`Baslat.bat`** to start local development
+(`npm run dev:all`) in a visible console window; stop it with Ctrl+C. It finds
+the system Node.js or the portable Node installed by `Kurulum.bat`, and points
+back to `Kurulum.bat` when setup is still missing. It never contacts or deploys
+to Cloudflare.
+
 Useful commands:
 
 | Command                    | Purpose                                  |
@@ -159,7 +165,7 @@ under `public/scenes/` are original: a silent 30-second development animation
 for `a-small-step`, plus original SVG posters and Turkish demo scripts. See
 [public/scenes/README.md](public/scenes/README.md).
 
-## Historical deployment and shutdown plan
+## Historical deployment and completed retirement
 
 On 2026-09-13 the Worker `take-two-rooms` was deployed to
 `https://take-two-rooms.take-two.workers.dev` on the card-free Workers path with
@@ -167,12 +173,22 @@ zero R2 bindings. Remote smoke, a safe-fixture render/share pass, and
 same-machine Chrome acceptance passed. Different-home multiplayer acceptance
 never ran.
 
-The deployment is planned to be shut down after GitHub publication is verified.
-Shutdown is not implemented in this change. See [docs/ARCHIVAL.md](docs/ARCHIVAL.md)
-and [docs/SHUTDOWN_CHECKLIST.md](docs/SHUTDOWN_CHECKLIST.md). Durable Object
-data removal (`ROOMS`, `SCENE_STUDIO`, `MEDIA_STORE`) requires separate
-verification against current Cloudflare documentation; do not assume Worker
-deletion alone permanently removes all DO data.
+On **2026-10-10 the production deployment was permanently retired**:
+
+- Phase A: a `v4` legacy migration deleted the `GameRoom`, `SceneStudio`, and
+  `MediaStore` classes including all stored data; the dashboard independently
+  showed "No Durable Objects found".
+- Phase B: `wrangler delete --name take-two-rooms` succeeded. Authenticated
+  checks return Worker-not-found (code 10007) and the former public URL returns
+  HTTP 404. No R2 was ever provisioned.
+
+The architecture sections below remain as historical documentation. **Local
+development needs no Cloudflare account and deploys nothing.** A future
+optional redeployment from this source would require `wrangler login`, an
+updated `ALLOWED_ORIGINS`, `npm run build`, `npm run production:audit`, and
+`wrangler deploy` — none of which run automatically. See
+[docs/ARCHIVAL.md](docs/ARCHIVAL.md) and
+[docs/SHUTDOWN_CHECKLIST.md](docs/SHUTDOWN_CHECKLIST.md).
 
 ## Repository contents
 
@@ -181,7 +197,8 @@ Tracked: `src/`, `shared/`, `worker/`, `tests/`, `docs/`, `scripts/`,
 configs (`package.json`, `package-lock.json`, `tsconfig.json`, `vite.config.ts`,
 `wrangler.jsonc`, `wrangler.dev.jsonc`, Playwright configs), `.env.example`,
 `index.html`, `LICENSE`, `README.md`, `README.tr.md`, `AGENTS.md`,
-`Kurulum.bat` (Windows one-click setup; implementation in `scripts/kurulum.ps1`).
+`Kurulum.bat` (Windows one-click setup; implementation in `scripts/kurulum.ps1`),
+`Baslat.bat` (Windows local-dev launcher for `npm run dev:all`).
 
 Excluded via `.gitignore`: `node_modules/`, `dist/`, `.tools/`, `.wrangler/`,
 `.worker-build/`, `ai/.venv*/`, `ai/.cache/`, `local-test-media/`,

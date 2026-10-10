@@ -1,53 +1,37 @@
-# Cloudflare shutdown checklist (not executed)
+# Cloudflare shutdown checklist (completed 2026-10-10)
 
-This checklist prepares the safe retirement of the historical production
-deployment. Do not execute any step here until GitHub publication is verified
-and the user gives explicit approval for each irreversible action. No shutdown
-command was run as part of publication preparation.
+This checklist recorded the safe retirement of the historical production
+deployment. All steps below are complete. The historical architecture
+documentation in `docs/` is preserved unchanged.
 
-## Current state (2026-09-13 deployment)
+## Final state
 
-- Worker: `take-two-rooms` at `https://take-two-rooms.take-two.workers.dev`.
-- Bindings: `ROOMS` (`GameRoom`), `SCENE_STUDIO` (`SceneStudio`), `MEDIA_STORE`
-  (`MediaStore`), all SQLite Durable Objects; plus `ASSETS` Static Assets.
-- R2 bindings: zero. No bucket was created.
-- Stored data includes room state, scene preparation metadata, and private media
-  bytes (sources, backgrounds, thumbnails, recordings, final MP4s) inside DO
-  storage. Room TTL is three hours, but finished results persist until expiry or
-  cleanup.
+- Worker `take-two-rooms` is **deleted**. Authenticated CLI checks return
+  Worker-not-found (code 10007); the former public URL
+  `https://take-two-rooms.take-two.workers.dev` returns HTTP 404.
+- Durable Object classes `GameRoom`, `SceneStudio`, and `MediaStore` were
+  permanently removed with all stored data via a `v4` legacy `deleted_classes`
+  migration before Worker deletion. The dashboard independently showed
+  "No Durable Objects found".
+- R2 was never provisioned (bucket list: code 10042). No Worker secrets existed.
+- No hosted scenes, recordings, final MP4s, or private media were preserved,
+  per explicit decision. No backup was requested.
 
-## Before any destructive step
+## Completed verification (2026-10-10)
 
-- [ ] Confirm GitHub repo `akcealan/TakeTwoDubbing` contains the intended source
-      and a fresh clone passes `npm ci` + `npm run build`.
-- [ ] Confirm no active rooms or participants depend on the deployment.
-- [ ] Record the Worker name, bindings, migrations (`v1`/`v2`/`v3`), and Static
-      Asset list for the retirement log.
-- [ ] Decide whether any hosted private media must be downloaded by its owner
-      before deletion. There is no public media; every fetch requires an
-      authorized room/scene session.
-
-## Shutdown verification (read-only)
-
-- [ ] Check the Worker responds (or already stopped) at the historical URL.
-- [ ] Review current Cloudflare dashboard for the Worker, Durable Object
-      classes, and Static Assets.
-- [ ] Review current Cloudflare Durable Object class lifecycle and migration
-      documentation. Do not assume `wrangler delete` permanently removes all DO
-      data on its own.
-
-## Irreversible steps (explicit approval required)
-
-> Each step below is irreversible. Execute only after written user approval.
-
-- [ ] APPROVAL: delete/shut down Worker `take-two-rooms`.
-- [ ] Verify the Worker URL no longer serves the app.
-- [ ] Separately verify permanent removal of `ROOMS`, `SCENE_STUDIO`, and
-      `MEDIA_STORE` data against current Cloudflare documentation and dashboard
-      state. If class-level data or migrations survive Worker deletion, follow
-      the documented class/migration deletion path and re-verify.
-- [ ] Verify Static Assets are removed.
-- [ ] Record completion date in `docs/ARCHIVAL.md` (follow-up change).
+- [x] GitHub repo `akcealan/TakeTwoDubbing` contained the intended source;
+      a fresh clone passed `npm ci` + `npm run build`.
+- [x] No active rooms or participants depended on the deployment
+      (retirement explicitly authorized with no preservation requirement).
+- [x] Worker name, bindings (`ROOMS`, `SCENE_STUDIO`, `MEDIA_STORE`, `ASSETS`),
+      migrations (`v1`/`v2`/`v3`), and Static Asset list recorded in prior
+      retirement reports before any destructive step.
+- [x] Phase A migration deploy accepted and applied; live version showed zero
+      bindings and all application endpoints returned HTTP 410.
+- [x] Phase B `wrangler delete --name take-two-rooms` succeeded;
+      post-delete URL check returned HTTP 404.
+- [x] No unrelated Cloudflare resources were modified (R2 never enabled,
+      no other Workers touched).
 
 ## After shutdown
 

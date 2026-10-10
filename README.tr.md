@@ -97,6 +97,12 @@ Depo kökündeki **`Kurulum.bat`** dosyasına çift tıklayın (veya terminalden
 Kurulum tekrar güvenli çalışır: geçerli mevcut indirmeler yeniden indirilmez,
 tamamlanmış adımlar atlanır.
 
+Kurulumdan sonra yerel geliştirmeyi görünür bir konsol penceresinde başlatmak
+için **`Baslat.bat`** dosyasına çift tıklayın (`npm run dev:all`); Ctrl+C ile
+durdurun. Sistem Node.js yoksa `Kurulum.bat` ile kurulan taşınabilir Node
+kullanılır; kurulum eksikse sizi `Kurulum.bat` dosyasına yönlendirir. Cloudflare
+ile iletişim kurmaz veya dağıtım yapmaz.
+
 Yararlı komutlar:
 
 | Komut                      | Amaç                                                 |
@@ -160,19 +166,28 @@ taraf klip eklemeyin. `public/scenes/` altındaki demolar özgündür: `a-small-
 için sessiz 30 saniyelik geliştirme animasyonu, özgün SVG posterler ve Türkçe
 demo replikler. Bkz. [public/scenes/README.md](public/scenes/README.md).
 
-## Geçmiş dağıtım ve kapatma planı
+## Geçmiş dağıtım ve tamamlanan kapatma
 
 2026-09-13 tarihinde `take-two-rooms` Worker'ı kartsız Workers yoluyla
 `https://take-two-rooms.take-two.workers.dev` adresine dağıtıldı; R2 binding
 yoktur. Uzak smoke, güvenli-fixture render/paylaşım ve aynı makinede Chrome
 kabulü geçti. Farklı-ev çok oyunculu kabul testi hiç çalışmadı.
 
-Dağıtımın GitHub yayını doğrulandıktan sonra kapatılması planlanır. Kapatma bu
-değişiklikte uygulanmamıştır. Bkz. [docs/ARCHIVAL.md](docs/ARCHIVAL.md) ve
-[docs/SHUTDOWN_CHECKLIST.md](docs/SHUTDOWN_CHECKLIST.md). Durable Object veri
-silme (`ROOMS`, `SCENE_STUDIO`, `MEDIA_STORE`) güncel Cloudflare belgelerine
-karşı ayrıca doğrulanmalıdır; Worker silmenin tüm DO verisini kalıcı sildiği
-varsayılmamalıdır.
+**2026-10-10 tarihinde üretim dağıtımı kalıcı olarak kapatıldı:**
+
+- Faz A: `v4` legacy migrasyonu `GameRoom`, `SceneStudio` ve `MediaStore`
+  sınıflarını verileriyle birlikte sildi; panel bağımsız olarak "No Durable
+  Objects found" gösterdi.
+- Faz B: `wrangler delete --name take-two-rooms` başarılı oldu. Kimlikli
+  kontroller Worker-bulunamadı (kod 10007) döndürdü ve eski public URL HTTP 404
+  veriyor. R2 hiçbir zaman açılmadı.
+
+Aşağıdaki mimari bölümleri tarihsel belge olarak korunur. **Yerel geliştirme
+Cloudflare hesabı istemez ve hiçbir şey dağıtmaz.** Bu kaynaktan ileride
+isteğe bağlı yeniden dağıtım için `wrangler login`, güncel `ALLOWED_ORIGINS`,
+`npm run build`, `npm run production:audit` ve `wrangler deploy` gerekir —
+hiçbiri otomatik çalışmaz. Bkz. [docs/ARCHIVAL.md](docs/ARCHIVAL.md) ve
+[docs/SHUTDOWN_CHECKLIST.md](docs/SHUTDOWN_CHECKLIST.md).
 
 ## Depo içeriği
 
@@ -182,7 +197,8 @@ yapılandırmalar (`package.json`, `package-lock.json`, `tsconfig.json`,
 `vite.config.ts`, `wrangler.jsonc`, `wrangler.dev.jsonc`, Playwright
 yapılandırmaları), `.env.example`, `index.html`, `LICENSE`, `README.md`,
 `README.tr.md`, `AGENTS.md`, `Kurulum.bat` (Windows tek tık kurulum;
-uygulama `scripts/kurulum.ps1` içindedir).
+uygulama `scripts/kurulum.ps1` içindedir), `Baslat.bat` (Windows yerel
+geliştirme başlatıcısı, `npm run dev:all`).
 
 `.gitignore` ile dışlanan: `node_modules/`, `dist/`, `.tools/`, `.wrangler/`,
 `.worker-build/`, `ai/.venv*/`, `ai/.cache/`, `local-test-media/`,

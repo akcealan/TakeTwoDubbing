@@ -75,6 +75,28 @@ npm run dev:all
 Yerelde Cloudflare hesabı gerekmez. Vite `/api` proxy'si için
 `VITE_API_BASE_URL` boş bırakılır. Değişkenler için `.env.example` dosyasına bakılır.
 
+### Windows hızlı kurulum
+
+Depo kökündeki **`Kurulum.bat`** dosyasına çift tıklayın (veya terminalden
+`Kurulum.bat web` çalıştırın). Yalnızca mevcut proje betikleri kullanılır:
+
+- `PATH` üzerinde uyumlu bir Node.js varsa onu kullanır; yoksa sabitlenmiş
+  taşınabilir Node 24.20.0 sürümünü resmi nodejs.org dağıtımından yok sayılan
+  `.tools/` altına indirir ve SHA-256 değerini doğrular. Yönetici hakkı ve
+  global kurulum gerekmez.
+- Kilitli bağımlılıkları kurar (`npm ci`; zaten güncelse atlanır), ffmpeg
+  runtime checksum değerlerini hazırlar ve doğrular, build ile doğrular.
+- `Kurulum.bat full`, mevcut `ai-setup` CPU yoluyla Python/uv AI ortamını da
+  kurar; `Kurulum.bat full-cuda` mevcut CUDA yolunu kullanır. Model ağırlıkları
+  asla otomatik indirilmez: gated modeller (özellikle
+  `pyannote/speaker-diarization-community-1`, CC BY 4.0) için Hugging Face koşul
+  onayı, yalnızca terminalde `HF_TOKEN` olarak ayarlanan ücretsiz token ve
+  `npm run ai:models` adımları manuel kalır. CDX23 checkpoint ağırlıkları lisans
+  belirsizliği nedeniyle manuel ve yalnızca yereldir.
+
+Kurulum tekrar güvenli çalışır: geçerli mevcut indirmeler yeniden indirilmez,
+tamamlanmış adımlar atlanır.
+
 Yararlı komutlar:
 
 | Komut                      | Amaç                                                 |
@@ -159,7 +181,8 @@ Takip edilen: `src/`, `shared/`, `worker/`, `tests/`, `docs/`, `scripts/`,
 yapılandırmalar (`package.json`, `package-lock.json`, `tsconfig.json`,
 `vite.config.ts`, `wrangler.jsonc`, `wrangler.dev.jsonc`, Playwright
 yapılandırmaları), `.env.example`, `index.html`, `LICENSE`, `README.md`,
-`README.tr.md`, `AGENTS.md`.
+`README.tr.md`, `AGENTS.md`, `Kurulum.bat` (Windows tek tık kurulum;
+uygulama `scripts/kurulum.ps1` içindedir).
 
 `.gitignore` ile dışlanan: `node_modules/`, `dist/`, `.tools/`, `.wrangler/`,
 `.worker-build/`, `ai/.venv*/`, `ai/.cache/`, `local-test-media/`,

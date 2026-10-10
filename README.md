@@ -75,6 +75,27 @@ Open `http://127.0.0.1:5173`. The local Worker listens on `http://127.0.0.1:8787
 account is needed locally. Leave `VITE_API_BASE_URL` unset to use the Vite `/api`
 proxy. See `.env.example` for documented variables.
 
+### Windows quick setup
+
+Double-click **`Kurulum.bat`** in the repository root (or run `Kurulum.bat web`
+from a terminal). It reuses only the existing project scripts:
+
+- Reuses a compatible Node.js when one is on `PATH`; otherwise downloads the
+  pinned portable Node 24.20.0 from the official nodejs.org distribution into
+  ignored `.tools/` and verifies its SHA-256. No admin rights, no global install.
+- Installs locked dependencies (`npm ci`, skipped when already in sync),
+  prepares and verifies the ffmpeg runtime checksums, and verifies the build.
+- `Kurulum.bat full` additionally sets up the Python/uv AI environment through
+  the existing `ai-setup` CPU path; `Kurulum.bat full-cuda` uses the existing
+  CUDA path. Model weights are never downloaded automatically: gated models
+  (notably `pyannote/speaker-diarization-community-1`, CC BY 4.0) still require
+  manual Hugging Face condition acceptance, a free token set as `HF_TOKEN` in
+  the terminal only, and `npm run ai:models`. CDX23 checkpoint weights are
+  license-uncertain and stay manual and local-only.
+
+The installer is repeat-safe: valid existing downloads are reused and completed
+steps are skipped.
+
 Useful commands:
 
 | Command                    | Purpose                                  |
@@ -159,7 +180,8 @@ Tracked: `src/`, `shared/`, `worker/`, `tests/`, `docs/`, `scripts/`,
 `ai/src/`, `ai/tests/`, `ai/scripts/`, `ai/README.md`, `public/scenes/`,
 configs (`package.json`, `package-lock.json`, `tsconfig.json`, `vite.config.ts`,
 `wrangler.jsonc`, `wrangler.dev.jsonc`, Playwright configs), `.env.example`,
-`index.html`, `LICENSE`, `README.md`, `README.tr.md`, `AGENTS.md`.
+`index.html`, `LICENSE`, `README.md`, `README.tr.md`, `AGENTS.md`,
+`Kurulum.bat` (Windows one-click setup; implementation in `scripts/kurulum.ps1`).
 
 Excluded via `.gitignore`: `node_modules/`, `dist/`, `.tools/`, `.wrangler/`,
 `.worker-build/`, `ai/.venv*/`, `ai/.cache/`, `local-test-media/`,
